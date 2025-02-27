@@ -27,6 +27,7 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S"
 )
 
+
 def execute_command(current_dir, args):
     """
     Executes ImpairmentStudio command specified in arguments
@@ -693,8 +694,7 @@ def main():
     app_path = sys.path[0]
 
     # Ensure that at least one argument (the API selector) is provided.
-    if lxqen(sys.argv) <= 1:
-        print("Usage: <api_selector> [options]")
+    if len(sys.argv) <= 1:
         arg_parser.print_help()
         exit(1)
 
@@ -705,12 +705,12 @@ def main():
     # 'is' corresponds to ImpairmentStudio, and additional groups can be added here.
     api_groups = {
         'is': (arg_parser, execute_command),
+        # Example for future extension:
+        # 'other': (other_api_parser, execute_other_command),
     }
 
     # Check if the provided API selector is known.
     if api_selector not in api_groups:
-        print(f"Unknown API selector: {api_selector}")
-        print("Available API selectors: " + ", ".join(api_groups.keys()))
         arg_parser.print_help()
         exit(1)
 
